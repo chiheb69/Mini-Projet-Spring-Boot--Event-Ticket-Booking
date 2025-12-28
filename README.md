@@ -16,15 +16,15 @@ graph TD
     Gateway --> EventService[Event Service :8081]
     Gateway --> AttendeeService[Attendee Service :8082]
     Gateway --> BookingService[Booking Service :8083]
-    
+
     BookingService -- Sync (Feign) --> EventService
     BookingService -- Async (RabbitMQ) --> Queue[(Booking Queue)]
-    
+
     EventService -.-> Discovery[Eureka Server :8761]
     AttendeeService -.-> Discovery
     BookingService -.-> Discovery
     Gateway -.-> Discovery
-    
+
     EventService -.-> Config[Config Server :9999]
     AttendeeService -.-> Config
     BookingService -.-> Config
@@ -32,40 +32,42 @@ graph TD
 
 ## 🚀 Services Overview
 
-| Service | Port | Description | DB (H2) |
-| :--- | :--- | :--- | :--- |
-| **Discovery Service** | `8761` | Eureka Server for service registration & discovery. | N/A |
-| **Config Service** | `9999` | Centralized configuration server. | N/A |
-| **Gateway Service** | `8888` | Spring Cloud Gateway acting as the single entry point. | N/A |
-| **Event Service** | `8081` | Manages event details and seat availability. | `evenbdb` |
-| **Attendee Service** | `8082` | Manages user/attendee registration. | `attendeedb` |
-| **Booking Service** | `8083` | Handles booking logic and notifications. | `bookingdb` |
+| Service               | Port   | Description                                            | DB (H2)      |
+| :-------------------- | :----- | :----------------------------------------------------- | :----------- |
+| **Discovery Service** | `8761` | Eureka Server for service registration & discovery.    | N/A          |
+| **Config Service**    | `9999` | Centralized configuration server.                      | N/A          |
+| **Gateway Service**   | `8888` | Spring Cloud Gateway acting as the single entry point. | N/A          |
+| **Event Service**     | `8081` | Manages event details and seat availability.           | `evenbdb`    |
+| **Attendee Service**  | `8082` | Manages user/attendee registration.                    | `attendeedb` |
+| **Booking Service**   | `8083` | Handles booking logic and notifications.               | `bookingdb`  |
 
 ## 🛠️ Tech Stack
 
-*   **Core:** Java 17, Spring Boot 3
-*   **Discovery:** Netflix Eureka
-*   **Routing:** Spring Cloud Gateway
-*   **Communication:** OpenFeign (Sync), Spring AMQP / RabbitMQ (Async)
-*   **Database:** H2 In-Memory Database
-*   **Frontend:** HTML5, Bootstrap 5, Vanilla JS
+- **Core:** Java 17, Spring Boot 3
+- **Discovery:** Netflix Eureka
+- **Routing:** Spring Cloud Gateway
+- **Communication:** OpenFeign (Sync), Spring AMQP / RabbitMQ (Async)
+- **Database:** H2 In-Memory Database
+- **Frontend:** HTML5, Bootstrap 5, Vanilla JS
 
 ## 📦 Prerequisites
 
-*   Java Development Kit (JDK) 17+
-*   Maven 3.x
-*   RabbitMQ (Running on `localhost:5672`)
-    *   *Note: The application has error handling to continue even if RabbitMQ is down.*
+- Java Development Kit (JDK) 17+
+- Maven 3.x
+- RabbitMQ (Running on `localhost:5672`)
+  - _Note: The application has error handling to continue even if RabbitMQ is down._
 
 ## 🏁 Getting Started
 
 ### 1. Clone the Repository
+
 ```bash
-git clone https://github.com/yourusername/event-ticket-booking.git
+git clone https://github.com/event-ticket-booking.git
 cd event-ticket-booking
 ```
 
 ### 2. Start Infrastructure Services (Order Matters)
+
 Open separate terminals for each:
 
 1.  **Config Service**
@@ -82,6 +84,7 @@ Open separate terminals for each:
     ```
 
 ### 3. Start Microservices
+
 1.  **Event Service**
     ```bash
     mvn spring-boot:run -f event-service
@@ -96,17 +99,18 @@ Open separate terminals for each:
     ```
 
 ### 4. Access the Application
-*   **Frontend UI:** Open your browser to `http://localhost:8888/index.html`
-*   **Eureka Dashboard:** `http://localhost:8761`
+
+- **Frontend UI:** Open your browser to `http://localhost:8888/index.html`
+- **Eureka Dashboard:** `http://localhost:8761`
 
 ## 🔌 API Reference
 
-| Service | Method | Endpoint | Description |
-| :--- | :--- | :--- | :--- |
-| **Event** | `GET` | `/event-service/api/events` | List all events |
-| **Event** | `POST` | `/event-service/api/events` | Create an event |
+| Service      | Method | Endpoint                          | Description       |
+| :----------- | :----- | :-------------------------------- | :---------------- |
+| **Event**    | `GET`  | `/event-service/api/events`       | List all events   |
+| **Event**    | `POST` | `/event-service/api/events`       | Create an event   |
 | **Attendee** | `POST` | `/attendee-service/api/attendees` | Register attendee |
-| **Booking** | `POST` | `/booking-service/api/bookings` | Book a ticket |
+| **Booking**  | `POST` | `/booking-service/api/bookings`   | Book a ticket     |
 
 ## 📊 Class Diagram
 
@@ -127,5 +131,5 @@ classDiagram
 ```
 
 ## 👤 Author
-*   **Name:** [Your Name]
-*   **Group:** [Your Group]
+
+- **Name:** Chiheb Kammoun
